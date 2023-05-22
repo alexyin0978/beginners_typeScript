@@ -1,6 +1,11 @@
 import { expect, it } from "vitest";
 
-const coerceAmount = (amount: number | { amount: number }) => {};
+type PropType = number | { amount: number };
+
+const coerceAmount = (prop: PropType): number => {
+  if (typeof prop === "object") return prop.amount;
+  return prop;
+};
 
 it("Should return the amount when passed an object", () => {
   expect(coerceAmount({ amount: 20 })).toEqual(20);
